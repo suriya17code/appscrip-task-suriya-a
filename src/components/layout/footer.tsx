@@ -107,7 +107,7 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
             <div style={styles.column}>
               <h3 style={styles.heading}>FOLLOW US</h3>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                 <img src={"/images/footer/insta.svg"} alt='insta'/>
+                 <img src={"/images/footer/Insta.svg"} alt='insta'/>
                  <img src={"/images/footer/linked.svg"} alt='linked'/>
               </div>
               <h3 style={{ ...styles.heading, marginTop: '2rem' }}>mettā muse ACCEPTS</h3>
