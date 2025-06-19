@@ -3,6 +3,7 @@ import { useAccordion } from '@/hooks/useaccordion'
 import { useIsMobile } from '@/hooks/useIsmobile'
 import { getFooterStyles } from '@/styles/layouts/footerstyles'
 import React from 'react'
+import { ArrowIcon } from '../common/arrow'
 
 const Footer = () => {
 
@@ -42,6 +43,7 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
     'Privacy Policy',
     'Terms & Conditions',
   ];
+
 
   const renderLinks = (items: string[]) =>
     items.map((text, index) => (
@@ -138,7 +140,7 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
             {/* Accordion: Metta Muse */}
             <div>
               <button style={styles.accordionButton} onClick={() => toggleSection('metta')}>
-                mettā muse <span style={styles.icon}>{isOpen('metta') ? '▲' : '▼'}</span>
+                mettā muse  <ArrowIcon isOpen={isOpen('metta')} />
               </button>
               {isOpen('metta') && <div style={styles.accordionContent}>{renderLinks(mettaLinks)}</div>}
             </div>
@@ -147,21 +149,27 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
             {/* Accordion: Quick Links */}
             <div>
               <button style={styles.accordionButton} onClick={() => toggleSection('quick')}>
-                QUICK LINKS <span style={styles.icon}>{isOpen('quick') ? '▲' : '▼'}</span>
+                QUICK LINKS 
+                 <ArrowIcon isOpen={isOpen('quick')} />
               </button>
-              {isOpen('quick') && <div style={styles.accordionContent}>{renderLinks(quickLinks)}</div>}
+              {isOpen('quick') 
+              && 
+              <div style={styles.accordionContent}>{renderLinks(quickLinks)}</div>}
             </div>
 <hr style={{border: 'none',height: '2px',backgroundColor: '#ffffff',opacity: 0.2,width: '100%',}} />
 
             {/* Accordion: Follow Us */}
             <div style={{width:"100%"}}>
               <button style={styles.accordionButton} onClick={() => toggleSection('follow')}>
-                FOLLOW US <span style={styles.icon}>{isOpen('follow') ? '▲' : '▼'}</span>
+                {/* FOLLOW US <span style={styles.icon}>{isOpen('follow') ? '▲' : '▼'}</span> */}
+                 FOLLOW US
+                <ArrowIcon isOpen={isOpen('follow')} />
+
               </button>
               {isOpen('follow') && (
                 <div style={{ ...styles.accordionContent, flexDirection: 'row', gap: '1rem' }}>
-                  <span>🔗 FB</span>
-                  <span>🔗 LI</span>
+                <img src={"/images/footer/Insta.svg"} alt='insta'/>
+                 <img src={"/images/footer/linked.svg"} alt='linked'/>
                 </div>
               )}
             </div>

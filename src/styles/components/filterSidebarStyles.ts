@@ -5,13 +5,12 @@ export const getFilterSidebarStyle = (isMobile: boolean): CSSProperties => ({
   backgroundColor: '#fff',
   padding: isMobile ? '16px' : '24px',
   borderRadius: '8px',
-  border: '1px solid #e5e5e5'
 })
 
 export const filterSectionStyle: CSSProperties = {
   marginBottom: '24px',
   paddingBottom: '20px',
-  borderBottom: '1px solid #f0f0f0'
+  borderBottom: '1px solid rgb(191, 188, 188)'
 }
 
 export const lastFilterSectionStyle: CSSProperties = {
@@ -67,6 +66,7 @@ export const sectionContentStyle: CSSProperties = {
 
 export const priceInputsStyle: CSSProperties = {
   display: 'flex',
+  flexDirection:"column",
   gap: '12px'
 }
 

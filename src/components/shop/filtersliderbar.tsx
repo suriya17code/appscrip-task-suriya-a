@@ -2,8 +2,19 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Product } from '@/lib/types'
-import { useCategories } from '@/hooks/useproduct' 
-import { checkboxLabelStyle, chevronStyle, expandedChevronStyle, expandedChevronStyle1, expandedChevronStyle2, filterSectionStyle, getFilterSidebarStyle, lastFilterSectionStyle, priceInputsStyle, radioLabelStyle, sectionContentStyle, sectionHeaderStyle } from '@/styles/components/filterSidebarStyles'
+import { useCategories } from '@/hooks/useproduct'
+import {
+  checkboxLabelStyle,
+  chevronStyle,
+  expandedChevronStyle,
+  filterSectionStyle,
+  getFilterSidebarStyle,
+  lastFilterSectionStyle,
+  priceInputsStyle,
+  radioLabelStyle,
+  sectionContentStyle,
+  sectionHeaderStyle
+} from '@/styles/components/filterSidebarStyles'
 import { useIsMobile } from '@/hooks/useIsmobile'
 
 interface FilterSidebarProps {
@@ -13,19 +24,19 @@ interface FilterSidebarProps {
 
 export default function FilterSidebar({ products, onFilterChange }: FilterSidebarProps) {
   const { categories } = useCategories()
+  const isMobile = useIsMobile()
+
   const [filters, setFilters] = useState({
     customizable: false,
-    category: 'all',
+    categories: new Set<string>(),
     priceRange: [0, 1000],
-    rating: 0
+    ratings: new Set<number>()
   })
-  
+
   const [expandedSections, setExpandedSections] = useState({
     idealFor: true,
     occasion: false,
     work: false,
-    fabric: false,
-    segment: false
   })
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -40,31 +51,54 @@ export default function FilterSidebar({ products, onFilterChange }: FilterSideba
     
     let filtered = products
 
+    // Filter by customizable
+    if (newFilters.customizable) {
+      // You can add real logic here if needed
+      filtered = filtered.filter(p => p.title.toLowerCase().includes('custom'))
+    }
+
     // Filter by category
-    if (newFilters.category !== 'all') {
-      filtered = filtered.filter(product => product.category === newFilters.category)
+    if (newFilters.categories.size > 0) {
+      filtered = filtered.filter(product =>
+        newFilters.categories.has(product.category)
+      )
     }
 
     // Filter by price range
-    filtered = filtered.filter(product => 
-      product.price >= newFilters.priceRange[0] && 
+    filtered = filtered.filter(product =>
+      product.price >= newFilters.priceRange[0] &&
       product.price <= newFilters.priceRange[1]
     )
 
-    // Filter by rating
-    if (newFilters.rating > 0) {
-      filtered = filtered.filter(product => product.rating.rate >= newFilters.rating)
+    // Filter by ratings
+    if (newFilters.ratings.size > 0) {
+      filtered = filtered.filter(product =>
+        Array.from(newFilters.ratings).some(r => product.rating.rate >= r)
+      )
     }
 
     onFilterChange(filtered)
   }
-  
-  const isMobile = useIsMobile()
+
+  const toggleCategory = (category: string) => {
+    const newSet = new Set(filters.categories)
+    if (newSet.has(category)) newSet.delete(category)
+    else newSet.add(category)
+    handleFilterChange({ ...filters, categories: newSet })
+  }
+
+  const toggleRating = (rating: number) => {
+    const newSet = new Set(filters.ratings)
+    if (newSet.has(rating)) newSet.delete(rating)
+    else newSet.add(rating)
+    handleFilterChange({ ...filters, ratings: newSet })
+  }
 
   return (
     <div style={getFilterSidebarStyle(isMobile)}>
+
       {/* Customizable */}
-      <div style={filterSectionStyle}> 
+      <div style={filterSectionStyle}>
         <label style={checkboxLabelStyle}>
           <input
             type="checkbox"
@@ -85,35 +119,20 @@ export default function FilterSidebar({ products, onFilterChange }: FilterSideba
           style={sectionHeaderStyle}
         >
           <span>CATEGORY</span>
-             <ChevronDown style={{ ...chevronStyle, ...(expandedSections.idealFor ? expandedChevronStyle : {}) }} />
-    
+          <ChevronDown style={{
+            ...chevronStyle,
+            ...(expandedSections.idealFor ? expandedChevronStyle : {})
+          }} />
         </button>
+
         {expandedSections.idealFor && (
           <div style={sectionContentStyle}>
-            <label style={radioLabelStyle}>
-              <input
-                type="radio"
-                name="category"
-                value="all"
-                checked={filters.category === 'all'}
-                onChange={(e) => handleFilterChange({
-                  ...filters,
-                  category: e.target.value
-                })}
-              />
-              <span>All</span>
-            </label>
             {categories.map(category => (
-              <label key={category} style={radioLabelStyle}>
+              <label key={category} style={checkboxLabelStyle}>
                 <input
-                  type="radio"
-                  name="category"
-                  value={category}
-                  checked={filters.category === category}
-                  onChange={(e) => handleFilterChange({
-                    ...filters,
-                    category: e.target.value
-                  })}
+                  type="checkbox"
+                  checked={filters.categories.has(category)}
+                  onChange={() => toggleCategory(category)}
                 />
                 <span style={{ textTransform: 'capitalize' }}>{category}</span>
               </label>
@@ -129,8 +148,12 @@ export default function FilterSidebar({ products, onFilterChange }: FilterSideba
           style={sectionHeaderStyle}
         >
           <span>PRICE RANGE</span>
-          <ChevronDown style={{ ...chevronStyle, ...(expandedSections.idealFor ? expandedChevronStyle1 : {}) }} />
+          <ChevronDown style={{
+            ...chevronStyle,
+            ...(expandedSections.occasion ? expandedChevronStyle : {})
+          }} />
         </button>
+
         {expandedSections.occasion && (
           <div style={sectionContentStyle}>
             <div style={priceInputsStyle}>
@@ -163,24 +186,23 @@ export default function FilterSidebar({ products, onFilterChange }: FilterSideba
           onClick={() => toggleSection('work')}
           style={sectionHeaderStyle}
         >
-          <span>MINIMUM RATING</span> 
-           <ChevronDown style={{ ...chevronStyle, ...(expandedSections.idealFor ? expandedChevronStyle2 : {}) }} />
+          <span>MINIMUM RATING</span>
+          <ChevronDown style={{
+            ...chevronStyle,
+            ...(expandedSections.work ? expandedChevronStyle : {})
+          }} />
         </button>
+
         {expandedSections.work && (
           <div style={sectionContentStyle}>
-            {[0, 1, 2, 3, 4].map(rating => (
-              <label key={rating} style={radioLabelStyle}>
+            {[1, 2, 3, 4, 5].map(rating => (
+              <label key={rating} style={checkboxLabelStyle}>
                 <input
-                  type="radio"
-                  name="rating"
-                  value={rating}
-                  checked={filters.rating === rating}
-                  onChange={(e) => handleFilterChange({
-                    ...filters,
-                    rating: Number(e.target.value)
-                  })}
+                  type="checkbox"
+                  checked={filters.ratings.has(rating)}
+                  onChange={() => toggleRating(rating)}
                 />
-                <span>{rating === 0 ? 'All' : `${rating}+ Stars`}</span>
+                <span>{`${rating}+ Stars`}</span>
               </label>
             ))}
           </div>
