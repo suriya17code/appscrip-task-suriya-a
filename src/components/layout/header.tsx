@@ -6,6 +6,7 @@ import { bannerContentStyle, bannerSpanStyle, iconImageStyle, mainHeaderStyle, h
 import { containerStyle } from '@/styles/layouts/naviagtion';
 import { useIsMobile } from '@/hooks/useIsmobile';
 
+import Image from 'next/image'
 export default function Header() {
   
   const isMobile = useIsMobile()
@@ -17,18 +18,18 @@ export default function Header() {
         <div style={containerStyle(isMobile)}>
           <div style={bannerContentStyle(isMobile)}>
             <span style={bannerSpanStyle}>
-              <img src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
+              <Image src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
               Lorem ipsum dolor
             </span>
             {!isMobile && (
               <span style={bannerSpanStyle}>
-                <img src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
+                <Image src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
                 Lorem ipsum dolor
               </span>
             )}
             {!isMobile && (
               <span style={bannerSpanStyle}>
-                <img src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
+                <Image src="/images/logo/element-4.svg" style={iconImageStyle} alt="icon" />
                 Lorem ipsum dolor
               </span>
             )}

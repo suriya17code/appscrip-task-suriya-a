@@ -10,8 +10,7 @@ import {
   filterSectionStyle,
   getFilterSidebarStyle,
   lastFilterSectionStyle,
-  priceInputsStyle,
-  radioLabelStyle,
+  priceInputsStyle, 
   sectionContentStyle,
   sectionHeaderStyle
 } from '@/styles/components/filterSidebarStyles'

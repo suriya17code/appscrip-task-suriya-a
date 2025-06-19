@@ -1,10 +1,9 @@
 import Link from 'next/link'
-
+import Image from 'next/image'
 export default function Logo() {
-  return (
+   return (
     <Link href="/" className="logo"> 
-      <img src={"/images/logo/Vector.svg"} alt='logo'/>
-      
+      <Image src={"/images/logo/Vector.svg"} alt='logo'/>
     </Link>
   )
 }

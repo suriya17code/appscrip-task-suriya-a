@@ -5,6 +5,7 @@ import { getFooterStyles } from '@/styles/layouts/footerstyles'
 import React from 'react'
 import { ArrowIcon } from '../common/arrow'
 
+import Image from 'next/image'
 const Footer = () => {
 
 // Inside component:
@@ -80,7 +81,7 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
           <div>
             <h3 style={{...styles.heading}}>CURRENCY</h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem',padding:"10px" }}> 
-              <img src={"/images/footer/US.svg"} alt='US'/>
+              <Image src={"/images/footer/US.svg"} alt='US'/>
               <span style={{ fontSize: '0.875rem' }}>• USD</span>
             </div>
           {!isMobile && <p style={styles.paragraph}>
@@ -109,28 +110,28 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
             <div style={styles.column}>
               <h3 style={styles.heading}>FOLLOW US</h3>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                 <img src={"/images/footer/Insta.svg"} alt='insta'/>
-                 <img src={"/images/footer/linked.svg"} alt='linked'/>
+                 <Image src={"/images/footer/Insta.svg"} alt='insta'/>
+                 <Image src={"/images/footer/linked.svg"} alt='linked'/>
               </div>
               <h3 style={{ ...styles.heading, marginTop: '2rem' }}>mettā muse ACCEPTS</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
                 <div style={paymentStyle('white', 'gray')}>
-                 <img src={"/images/footer/gpay.svg"} alt='gpay'/>
+                 <Image src={"/images/footer/gpay.svg"} alt='gpay'/>
                 </div>
                 <div style={paymentStyle('orange', 'white')}>
-                 <img src={"/images/footer/mastercard.svg"} alt='mastercard'/>
+                 <Image src={"/images/footer/mastercard.svg"} alt='mastercard'/>
                 </div>
                 <div style={paymentStyle('blue', 'white')}>
-                 <img src={"/images/footer/pp.svg"} alt='pp'/>
+                 <Image src={"/images/footer/pp.svg"} alt='pp'/>
                 </div>
                 <div style={paymentStyle('#003087', 'white')}>
-                 <img src={"/images/footer/amex.svg"} alt='amex'/>
+                 <Image src={"/images/footer/amex.svg"} alt='amex'/>
                 </div>
                 <div style={paymentStyle('black', 'white')}>
-                 <img src={"/images/footer/applepay.svg"} alt='applepay'/>
+                 <Image src={"/images/footer/applepay.svg"} alt='applepay'/>
                 </div>
                 <div style={paymentStyle('purple', 'white')}>
-                 <img src={"/images/footer/pay.svg"} alt='pay'/>
+                 <Image src={"/images/footer/pay.svg"} alt='pay'/>
                 </div>
               </div>
             </div>
@@ -168,8 +169,8 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
               </button>
               {isOpen('follow') && (
                 <div style={{ ...styles.accordionContent, flexDirection: 'row', gap: '1rem' }}>
-                <img src={"/images/footer/Insta.svg"} alt='insta'/>
-                 <img src={"/images/footer/linked.svg"} alt='linked'/>
+                <Image src={"/images/footer/Insta.svg"} alt='insta'/>
+                 <Image src={"/images/footer/linked.svg"} alt='linked'/>
                 </div>
               )}
             </div>
@@ -180,22 +181,22 @@ const paymentStyle = (bgColor: string, textColor: string) => ({
               <h3 style={styles.heading}>mettā muse ACCEPTS</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem',justifyContent:"center" }}>
                 <div style={paymentStyle('white', 'gray')}>
-                    <img src={"/images/footer/gpay.svg"} alt='gpay'/>
+                    <Image src={"/images/footer/gpay.svg"} alt='gpay'/>
                 </div>
                 <div style={paymentStyle('orange', 'white')}>
-                     <img src={"/images/footer/mastercard.svg"} alt='mastercard'/>
+                     <Image src={"/images/footer/mastercard.svg"} alt='mastercard'/>
                 </div>
                 <div style={paymentStyle('blue', 'white')}>
-                     <img src={"/images/footer/pp.svg"} alt='pp'/>
+                     <Image src={"/images/footer/pp.svg"} alt='pp'/>
                 </div>
                 <div style={paymentStyle('#003087', 'white')}>
-                     <img src={"/images/footer/amex.svg"} alt='amex'/>
+                     <Image src={"/images/footer/amex.svg"} alt='amex'/>
                 </div>
                 <div style={paymentStyle('black', 'white')}>
-                     <img src={"/images/footer/applepay.svg"} alt='applepay'/>
+                     <Image src={"/images/footer/applepay.svg"} alt='applepay'/>
                 </div>
                 <div style={paymentStyle('purple', 'white')}>
-                     <img src={"/images/footer/pay.svg"} alt='pay'/>
+                     <Image src={"/images/footer/pay.svg"} alt='pay'/>
                 </div>
               </div>
             </div>
